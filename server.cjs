@@ -288,6 +288,145 @@ server.post("/tickets/:id/attachments", upload.single("file"), (req, res) => {
 
 server.use("/uploads", require("express").static(uploadsDir));
 
+// --- OTP + Pending Registration Approval ---
+
+// In-memory OTP store (not persisted to db.json)
+const otpStore = new Map(); // email -> { otp, expiresAt }
+
+function generateOtp() {
+  return String(Math.floor(100000 + Math.random() * 900000));
+}
+
+server.post("/auth/send-otp", (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: "Email is required" });
+  if (db.users.find((u) => u.email === email)) {
+    return res.status(409).json({ message: "Email already registered" });
+  }
+  const otp = generateOtp();
+  otpStore.set(email, { otp, expiresAt: Date.now() + 600000 }); // 10 min expiry
+  console.log(`[DEV] OTP for ${email}: ${otp}`);
+  res.json({ message: "OTP sent to your email" });
+});
+
+server.post("/auth/verify-otp", (req, res) => {
+  const { email, otp } = req.body;
+  if (!email || !otp) return res.status(400).json({ message: "Email and OTP are required" });
+  const stored = otpStore.get(email);
+  if (!stored) return res.status(400).json({ message: "No OTP sent to this email" });
+  if (stored.expiresAt < Date.now()) {
+    otpStore.delete(email);
+    return res.status(400).json({ message: "OTP has expired" });
+  }
+  if (stored.otp !== otp) return res.status(400).json({ message: "Invalid OTP" });
+  otpStore.delete(email);
+  // Mark as verified in a temporary set
+  if (!db._emailVerified) db._emailVerified = [];
+  if (!db._emailVerified.includes(email)) db._emailVerified.push(email);
+  res.json({ message: "OTP verified successfully" });
+});
+
+server.post("/auth/request-registration", (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "Name, email, and password are required" });
+  }
+  if (db.users.find((u) => u.email === email)) {
+    return res.status(409).json({ message: "Email already registered" });
+  }
+  // Check OTP verified
+  if (!db._emailVerified || !db._emailVerified.includes(email)) {
+    return res.status(400).json({ message: "Email not verified. Please verify OTP first." });
+  }
+  // Remove from verified set
+  db._emailVerified = (db._emailVerified || []).filter((e) => e !== email);
+
+  const pending = db.pendingRegistrations || [];
+  if (pending.find((p) => p.email === email && p.status === "pending")) {
+    return res.status(409).json({ message: "A pending request already exists for this email" });
+  }
+  const newId = pending.length > 0 ? Math.max(...pending.map((p) => p.id)) + 1 : 1;
+  pending.push({
+    id: newId,
+    name,
+    email,
+    password,
+    status: "pending",
+    createdAt: new Date().toISOString(),
+  });
+  db.pendingRegistrations = pending;
+  require("fs").writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  res.status(201).json({
+    message: "Registration request submitted. Waiting for admin approval.",
+    requestId: newId,
+  });
+});
+
+server.get("/auth/pending-requests", (req, res) => {
+  const user = findUserByToken(req.headers.authorization);
+  if (!user || user.role !== "ADMIN") {
+    return res.status(403).json({ message: "Only admins can view pending requests" });
+  }
+  const pending = (db.pendingRegistrations || []).filter((p) => p.status === "pending");
+  const safe = pending.map((p) => ({ id: p.id, name: p.name, email: p.email, createdAt: p.createdAt }));
+  res.json(safe);
+});
+
+server.post("/auth/approve-request/:id", (req, res) => {
+  const user = findUserByToken(req.headers.authorization);
+  if (!user || user.role !== "ADMIN") {
+    return res.status(403).json({ message: "Only admins can approve requests" });
+  }
+  const id = Number(req.params.id);
+  const pending = db.pendingRegistrations || [];
+  const idx = pending.findIndex((p) => p.id === id && p.status === "pending");
+  if (idx === -1) return res.status(404).json({ message: "Pending request not found" });
+  const request = pending[idx];
+
+  // Check if email already taken (might have been created in another way)
+  if (db.users.find((u) => u.email === request.email)) {
+    pending.splice(idx, 1);
+    db.pendingRegistrations = pending;
+    require("fs").writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    return res.status(409).json({ message: "Email already registered" });
+  }
+
+  // Create the user
+  const newId = db.users.length > 0 ? Math.max(...db.users.map((u) => u.id)) + 1 : 1;
+  const newUser = {
+    id: newId,
+    name: request.name,
+    email: request.email,
+    password: request.password,
+    role: "USER",
+    active: true,
+    createdAt: new Date().toISOString(),
+  };
+  db.users.push(newUser);
+
+  // Update request status
+  request.status = "approved";
+  db.pendingRegistrations = pending;
+  require("fs").writeFileSync(dbPath, JSON.stringify(db, null, 2));
+
+  res.json({ message: "Registration approved. User can now log in.", user: sanitizeUser(newUser) });
+});
+
+server.post("/auth/reject-request/:id", (req, res) => {
+  const user = findUserByToken(req.headers.authorization);
+  if (!user || user.role !== "ADMIN") {
+    return res.status(403).json({ message: "Only admins can reject requests" });
+  }
+  const id = Number(req.params.id);
+  const pending = db.pendingRegistrations || [];
+  const idx = pending.findIndex((p) => p.id === id && p.status === "pending");
+  if (idx === -1) return res.status(404).json({ message: "Pending request not found" });
+  pending[idx].status = "rejected";
+  db.pendingRegistrations = pending;
+  require("fs").writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  res.json({ message: "Registration request rejected" });
+});
+
 // --- User management (sanitized) ---
 
 server.get("/users", (req, res) => {

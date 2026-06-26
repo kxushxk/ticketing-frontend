@@ -10,6 +10,7 @@ export const Permissions = {
   TICKETS_DELETE: "tickets:delete",
   TICKETS_ASSIGN: "tickets:assign",
   USERS_MANAGE: "users:manage",
+  USERS_APPROVE: "users:approve",
 } as const;
 
 const rolePermissions: Record<UserRole, Permission[]> = {

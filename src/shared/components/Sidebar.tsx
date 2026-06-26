@@ -1,12 +1,13 @@
 ﻿import { NavLink } from "react-router-dom";
 import { usePermission } from "../../features/auth/usePermission";
 import { Permissions } from "../../features/auth/permissions";
-import { LayoutDashboard, PlusCircle, Users, X } from "lucide-react";
+import { LayoutDashboard, PlusCircle, Users, UserCheck, X } from "lucide-react";
 
 const navItems = [
   { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard, permission: null },
   { label: "Create Ticket", path: "/create-ticket", icon: PlusCircle, permission: Permissions.TICKETS_CREATE },
   { label: "Users", path: "/users", icon: Users, permission: Permissions.USERS_MANAGE },
+  { label: "Pending Approvals", path: "/admin/pending-approvals", icon: UserCheck, permission: Permissions.USERS_APPROVE },
 ] as const;
 
 interface SidebarProps {

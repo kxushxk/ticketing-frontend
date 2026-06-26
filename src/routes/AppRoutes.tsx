@@ -9,6 +9,7 @@ import CreateTicket from "../pages/CreateTicket";
 import TicketDetails from "../pages/TicketDetails";
 import NotFound from "../pages/NotFound";
 import Users from "../pages/Users";
+import PendingApprovals from "../pages/PendingApprovals";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthorizedRoute } from "./AuthorizedRoute";
 import { Permissions } from "../features/auth/permissions";
@@ -51,6 +52,14 @@ function AppRoutes() {
                     <ProtectedRoute>
                         <Users />
                     </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/admin/pending-approvals"
+                element={
+                    <AuthorizedRoute roles={["ADMIN"]}>
+                        <PendingApprovals />
+                    </AuthorizedRoute>
                 }
             />
             <Route path="*" element={<NotFound />} />

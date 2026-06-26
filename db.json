@@ -23,19 +23,18 @@
     },
     {
       "id": 4,
-      "name": "Regular User",
+      "name": "Regular user",
       "email": "user@test.com",
       "password": "password123",
       "role": "USER"
     },
     {
       "id": 5,
-      "name": "john",
+      "name": "John",
       "email": "user1@test.com",
-      "password": "password123",
+      "password": "pass123",
       "role": "USER",
-      "active": false,
-      "createdAt": "2026-06-25T08:52:20.197Z"
+      "active": false
     }
   ],
   "tickets": [
@@ -487,7 +486,49 @@
       "userId": 1,
       "accessToken": "jwt_dele5gkn96mexqvh98xw5gekp7gm714q8gqyd9u3",
       "refreshToken": "jwt_loinn4yx463vl6s7l7lebzotylgqy11sb9dodw9b"
+    },
+    {
+      "userId": 5,
+      "accessToken": "jwt_zvjdpkn4h76gqxclh3n1i0my1bxkxev7perhd21g",
+      "refreshToken": "jwt_iqdbo1qsggwwsld505ti3dngf21zgyrsnqy887ds"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_r9ifo9tbtouqu905l8y8r9cg6t2egd4pyeueez8z",
+      "refreshToken": "jwt_4tyuf3ek4rafx50tqypccuh3k3etdn2iqrafuu0a"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_pfzelhnstywbd6ww2lj8mjoujpk60cnnufyaootj",
+      "refreshToken": "jwt_xbzet9ca88ewwrqiuq9jt4bp5usqfwjpccdjxssm"
+    },
+    {
+      "userId": 5,
+      "accessToken": "jwt_y9smeiv4cfvh8ek1dpjl3j2vcsi4poj65xihiwj5",
+      "refreshToken": "jwt_zgfsc354j19x03wih15kvvhokkxiqouo5p57mvg0"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_xlvplcp9cn6q3p63304yclqu2von0ubvjzionmub",
+      "refreshToken": "jwt_vla9gsx9d3hezzk5cl5hm4ircxkoyqstbbhrvir5"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_7u72irap3jqp2e1t1n3334jyflhkabszbke1bzf3",
+      "refreshToken": "jwt_1j66dut8iub2zbd0bk5u2ncil11pwyua795qlmwc"
     }
   ],
-  "notifications": []
+  "notifications": [],
+  "resetTokens": [
+    {
+      "userId": 1,
+      "token": "jwt_vutnnztph0k63tsvvblbbelfybriusmneo0r1js7",
+      "expiresAt": 1782461571090
+    },
+    {
+      "userId": 1,
+      "token": "jwt_4b8nxewu9f0ztmvkz97fj1b6e8pracna8b9jsa6z",
+      "expiresAt": 1782461586535
+    }
+  ]
 }

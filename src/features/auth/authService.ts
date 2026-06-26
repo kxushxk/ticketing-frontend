@@ -6,6 +6,12 @@ import {
   mockGetProfileApi,
   mockForgotPasswordApi,
   mockResetPasswordApi,
+  mockSendOtpApi,
+  mockVerifyOtpApi,
+  mockRequestRegistrationApi,
+  mockGetPendingRequestsApi,
+  mockApproveRequestApi,
+  mockRejectRequestApi,
 } from "./mockAuthService";
 
 export interface LoginRequest {
@@ -66,5 +72,60 @@ export const resetPasswordApi = async (token: string, password: string): Promise
   if (USE_MOCK) return mockResetPasswordApi(token, password);
   const { default: axiosInstance } = await import("../../api/axiosInstance");
   const response = await axiosInstance.post("/auth/reset-password", { token, password });
+  return response.data;
+};
+
+export const sendOtpApi = async (email: string): Promise<{ message: string }> => {
+  if (USE_MOCK) return mockSendOtpApi(email);
+  const { default: axiosInstance } = await import("../../api/axiosInstance");
+  const response = await axiosInstance.post("/auth/send-otp", { email });
+  return response.data;
+};
+
+export const verifyOtpApi = async (email: string, otp: string): Promise<{ message: string }> => {
+  if (USE_MOCK) return mockVerifyOtpApi(email, otp);
+  const { default: axiosInstance } = await import("../../api/axiosInstance");
+  const response = await axiosInstance.post("/auth/verify-otp", { email, otp });
+  return response.data;
+};
+
+export interface RegistrationRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export const requestRegistrationApi = async (data: RegistrationRequest): Promise<{ message: string; requestId: number }> => {
+  if (USE_MOCK) return mockRequestRegistrationApi(data);
+  const { default: axiosInstance } = await import("../../api/axiosInstance");
+  const response = await axiosInstance.post("/auth/request-registration", data);
+  return response.data;
+};
+
+export interface PendingRequest {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: string;
+}
+
+export const getPendingRequestsApi = async (): Promise<PendingRequest[]> => {
+  if (USE_MOCK) return mockGetPendingRequestsApi();
+  const { default: axiosInstance } = await import("../../api/axiosInstance");
+  const response = await axiosInstance.get("/auth/pending-requests");
+  return response.data;
+};
+
+export const approveRequestApi = async (id: number): Promise<{ message: string; user?: User }> => {
+  if (USE_MOCK) return mockApproveRequestApi(id);
+  const { default: axiosInstance } = await import("../../api/axiosInstance");
+  const response = await axiosInstance.post(`/auth/approve-request/${id}`);
+  return response.data;
+};
+
+export const rejectRequestApi = async (id: number): Promise<{ message: string }> => {
+  if (USE_MOCK) return mockRejectRequestApi(id);
+  const { default: axiosInstance } = await import("../../api/axiosInstance");
+  const response = await axiosInstance.post(`/auth/reject-request/${id}`);
   return response.data;
 };
