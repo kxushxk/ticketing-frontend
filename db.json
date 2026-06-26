@@ -1,0 +1,493 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin User",
+      "email": "admin@test.com",
+      "password": "password123",
+      "role": "ADMIN"
+    },
+    {
+      "id": 2,
+      "name": "Manager User",
+      "email": "manager@test.com",
+      "password": "password123",
+      "role": "MANAGER"
+    },
+    {
+      "id": 3,
+      "name": "Dev User",
+      "email": "dev@test.com",
+      "password": "password123",
+      "role": "DEVELOPER"
+    },
+    {
+      "id": 4,
+      "name": "Regular User",
+      "email": "user@test.com",
+      "password": "password123",
+      "role": "USER"
+    },
+    {
+      "id": 5,
+      "name": "john",
+      "email": "user1@test.com",
+      "password": "password123",
+      "role": "USER",
+      "active": false,
+      "createdAt": "2026-06-25T08:52:20.197Z"
+    }
+  ],
+  "tickets": [
+    {
+      "title": "Login page not rendering",
+      "description": "Users are seeing a blank page when navigating to /login. The ProtectedRoute redirects to /login but the route is missing.",
+      "status": "Open",
+      "priority": "Critical",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "title": "Add dark mode support",
+      "description": "Implement dark mode across the entire application using Tailwind's dark variant and CSS custom properties.",
+      "status": "In Progress",
+      "priority": "High",
+      "assigneeId": 3,
+      "assigneeName": "Dev User",
+      "createdBy": 2,
+      "createdByName": "Manager User",
+      "category": "Feature",
+      "createdAt": "2026-06-21T14:00:00Z",
+      "updatedAt": "2026-06-22T09:00:00Z"
+    },
+    {
+      "id": 3,
+      "title": "Email notification system",
+      "description": "Set up email notifications for ticket assignments and status changes. Use SendGrid or similar service.",
+      "status": "Open",
+      "priority": "Medium",
+      "assigneeId": null,
+      "assigneeName": null,
+      "createdBy": 1,
+      "createdByName": "Admin User",
+      "category": "Feature",
+      "createdAt": "2026-06-22T08:00:00Z",
+      "updatedAt": "2026-06-22T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "title": "Dashboard page is plain text",
+      "description": "The dashboard currently shows a plain text list of tickets. Needs stat cards, search, filters, and a proper data table.",
+      "status": "Completed",
+      "priority": "High",
+      "assigneeId": 3,
+      "assigneeName": "Dev User",
+      "createdBy": 2,
+      "createdByName": "Manager User",
+      "category": "Bug",
+      "createdAt": "2026-06-18T11:00:00Z",
+      "updatedAt": "2026-06-23T16:00:00Z"
+    },
+    {
+      "id": 5,
+      "title": "API rate limiting",
+      "description": "Implement rate limiting on all API endpoints to prevent abuse. Use express-rate-limit or similar middleware.",
+      "status": "Completed",
+      "priority": "Low",
+      "assigneeId": 1,
+      "assigneeName": "Admin User",
+      "createdBy": 1,
+      "createdByName": "Admin User",
+      "category": "Infrastructure",
+      "createdAt": "2026-06-15T09:00:00Z",
+      "updatedAt": "2026-06-17T14:00:00Z"
+    },
+    {
+      "id": 6,
+      "title": "User profile page",
+      "description": "Create a user profile page where users can update their name, email, and password.",
+      "status": "Open",
+      "priority": "Medium",
+      "assigneeId": null,
+      "assigneeName": null,
+      "createdBy": 4,
+      "createdByName": "Regular User",
+      "category": "Feature",
+      "createdAt": "2026-06-23T12:00:00Z",
+      "updatedAt": "2026-06-23T12:00:00Z"
+    },
+    {
+      "id": 7,
+      "title": "Ticket attachment support",
+      "description": "Allow users to attach files (images, PDFs) to tickets. Max 10MB per file.",
+      "status": "In Progress",
+      "priority": "Medium",
+      "assigneeId": 3,
+      "assigneeName": "Dev User",
+      "createdBy": 2,
+      "createdByName": "Manager User",
+      "category": "Feature",
+      "createdAt": "2026-06-20T15:00:00Z",
+      "updatedAt": "2026-06-24T08:00:00Z"
+    },
+    {
+      "id": 8,
+      "title": "Mobile responsive sidebar",
+      "description": "The sidebar should collapse on mobile and show a hamburger menu instead.",
+      "status": "Open",
+      "priority": "High",
+      "assigneeId": null,
+      "assigneeName": null,
+      "createdBy": 4,
+      "createdByName": "Regular User",
+      "category": "Bug",
+      "createdAt": "2026-06-24T07:00:00Z",
+      "updatedAt": "2026-06-24T07:00:00Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "ticketId": 1,
+      "authorId": 1,
+      "authorName": "Admin User",
+      "body": "I found the issue. The /login route was missing from AppRoutes.tsx.",
+      "createdAt": "2026-06-20T11:00:00Z"
+    },
+    {
+      "id": 2,
+      "ticketId": 1,
+      "authorId": 3,
+      "authorName": "Dev User",
+      "body": "Fixed it. Added the route and the redirect after login.",
+      "createdAt": "2026-06-20T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "ticketId": 2,
+      "authorId": 3,
+      "authorName": "Dev User",
+      "body": "Working on the dark mode CSS variables. Should be ready for review tomorrow.",
+      "createdAt": "2026-06-21T16:00:00Z"
+    },
+    {
+      "id": 4,
+      "ticketId": 4,
+      "authorId": 3,
+      "authorName": "Dev User",
+      "body": "Added stat cards, skeleton loaders, and search functionality.",
+      "createdAt": "2026-06-22T14:00:00Z"
+    },
+    {
+      "id": 5,
+      "ticketId": 7,
+      "authorId": 3,
+      "authorName": "Dev User",
+      "body": "Looking into multer for file uploads. Will use S3 for storage.",
+      "createdAt": "2026-06-21T09:00:00Z"
+    }
+  ],
+  "history": [
+    {
+      "id": 1,
+      "ticketId": 1,
+      "userId": 1,
+      "userName": "Admin User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-20T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "ticketId": 1,
+      "userId": 3,
+      "userName": "Dev User",
+      "action": "assigned",
+      "field": "assignee",
+      "oldValue": null,
+      "newValue": "Dev User",
+      "createdAt": "2026-06-20T10:05:00Z"
+    },
+    {
+      "id": 3,
+      "ticketId": 2,
+      "userId": 2,
+      "userName": "Manager User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-21T14:00:00Z"
+    },
+    {
+      "id": 4,
+      "ticketId": 2,
+      "userId": 2,
+      "userName": "Manager User",
+      "action": "assigned",
+      "field": "assignee",
+      "oldValue": null,
+      "newValue": "Dev User",
+      "createdAt": "2026-06-21T14:05:00Z"
+    },
+    {
+      "id": 5,
+      "ticketId": 2,
+      "userId": 3,
+      "userName": "Dev User",
+      "action": "status_changed",
+      "field": "status",
+      "oldValue": "Open",
+      "newValue": "In Progress",
+      "createdAt": "2026-06-22T09:00:00Z"
+    },
+    {
+      "id": 6,
+      "ticketId": 3,
+      "userId": 1,
+      "userName": "Admin User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-22T08:00:00Z"
+    },
+    {
+      "id": 7,
+      "ticketId": 4,
+      "userId": 2,
+      "userName": "Manager User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-18T11:00:00Z"
+    },
+    {
+      "id": 8,
+      "ticketId": 4,
+      "userId": 2,
+      "userName": "Manager User",
+      "action": "assigned",
+      "field": "assignee",
+      "oldValue": null,
+      "newValue": "Dev User",
+      "createdAt": "2026-06-18T11:05:00Z"
+    },
+    {
+      "id": 9,
+      "ticketId": 4,
+      "userId": 3,
+      "userName": "Dev User",
+      "action": "status_changed",
+      "field": "status",
+      "oldValue": "Open",
+      "newValue": "In Progress",
+      "createdAt": "2026-06-20T09:00:00Z"
+    },
+    {
+      "id": 10,
+      "ticketId": 4,
+      "userId": 3,
+      "userName": "Dev User",
+      "action": "status_changed",
+      "field": "status",
+      "oldValue": "In Progress",
+      "newValue": "Completed",
+      "createdAt": "2026-06-23T16:00:00Z"
+    },
+    {
+      "id": 11,
+      "ticketId": 5,
+      "userId": 1,
+      "userName": "Admin User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-15T09:00:00Z"
+    },
+    {
+      "id": 12,
+      "ticketId": 5,
+      "userId": 1,
+      "userName": "Admin User",
+      "action": "assigned",
+      "field": "assignee",
+      "oldValue": null,
+      "newValue": "Admin User",
+      "createdAt": "2026-06-15T09:05:00Z"
+    },
+    {
+      "id": 13,
+      "ticketId": 5,
+      "userId": 1,
+      "userName": "Admin User",
+      "action": "status_changed",
+      "field": "status",
+      "oldValue": "Open",
+      "newValue": "Completed",
+      "createdAt": "2026-06-17T14:00:00Z"
+    },
+    {
+      "id": 14,
+      "ticketId": 6,
+      "userId": 4,
+      "userName": "Regular User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-23T12:00:00Z"
+    },
+    {
+      "id": 15,
+      "ticketId": 7,
+      "userId": 2,
+      "userName": "Manager User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-20T15:00:00Z"
+    },
+    {
+      "id": 16,
+      "ticketId": 7,
+      "userId": 2,
+      "userName": "Manager User",
+      "action": "assigned",
+      "field": "assignee",
+      "oldValue": null,
+      "newValue": "Dev User",
+      "createdAt": "2026-06-20T15:05:00Z"
+    },
+    {
+      "id": 17,
+      "ticketId": 7,
+      "userId": 3,
+      "userName": "Dev User",
+      "action": "status_changed",
+      "field": "status",
+      "oldValue": "Open",
+      "newValue": "In Progress",
+      "createdAt": "2026-06-24T08:00:00Z"
+    },
+    {
+      "id": 18,
+      "ticketId": 8,
+      "userId": 4,
+      "userName": "Regular User",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-24T07:00:00Z"
+    },
+    {
+      "id": 19,
+      "ticketId": 9,
+      "userName": "Unknown",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2026-06-25T09:19:00.399Z"
+    }
+  ],
+  "sessions": [
+    {
+      "userId": 1,
+      "accessToken": "jwt_ndgynam4s8y63a1cxvw8a416l2sifa65tfc5bj8x",
+      "refreshToken": "jwt_yevzjih15m6orjykre57cy56c7vuqmpweuvkqn91"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_7xw6da0k288e1kgxf6hw3pqv45wlu6vbfk00woi7",
+      "refreshToken": "jwt_vp1yxb6vx14cv1clhz15kf9vfhd4nmwj5jnpf6se"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_yjxx8t2oh65zswclwev2t9d43upyx7q9kiranl31",
+      "refreshToken": "jwt_55aqffs48mqknihtjlpuuysb6m3jubtgou4ojnwl"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_612gqudstozu113wf573whxwgnr42sll8oafj7h6",
+      "refreshToken": "jwt_ngrs7awi5mtzkz7fyzg73eupk0s2g7bj4d3cj1cx"
+    },
+    {
+      "userId": 5,
+      "accessToken": "jwt_bheu3dxlkjflrix2knezzf7g9s4kgdmrmg6chbcm",
+      "refreshToken": "jwt_w2gh04qn5dssh8weqkafbod9yqqb2hhb6uu7mt6z"
+    },
+    {
+      "userId": 3,
+      "accessToken": "jwt_bevcard8cq34tkev057mfx5is9s8wobwrqlf0r7i",
+      "refreshToken": "jwt_j8mux0m52sqs59mx3g7vs8ux0fscq99675cf7vgw"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_8v2qoduxji40u9eaza2hj7hn20z4n8e86c9g6ybk",
+      "refreshToken": "jwt_57pcrk6ikmgzxgkj9ua73s89kqa2wb3o7nikcl26"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_8rpgd8a1cbj4uq7apx86x7cxuul2xl8r3o98gsoo",
+      "refreshToken": "jwt_8847ben27sssy0ve2g6loyu0i6gtdrgkwr9t0v56"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_pwup0mkqxyn4hrvawx6q2gwn32v8aw3g6wfa4nho",
+      "refreshToken": "jwt_vjm4mumtsv3m065628nj9krfiuoyzyi2q1igjus2"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_irxn9vh9u1d0m9dnv8htb76ig9i2jebzz3tyugzz",
+      "refreshToken": "jwt_j073z5jh28aushjy2a5vhmy4edpnwyxlnkwjew7e"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_j0ysswsm4rczys8y48d3rau1fmebm0a4gpn1dosk",
+      "refreshToken": "jwt_3topn2rbztf05jn5ivfh2qsyz1lwy194phfk5fsq"
+    },
+    {
+      "userId": 5,
+      "accessToken": "jwt_eamfwamcshvpyvkpiir4q0y1li4h0jpoxwkca1up",
+      "refreshToken": "jwt_fj5vy3et1nzx0l213a2g6kwjmunurn5sif6prqna"
+    },
+    {
+      "userId": 6,
+      "accessToken": "jwt_mf1259jnb2fpnieodv3dd9q7hz6leydhk8584tvm",
+      "refreshToken": "jwt_sv76ryxbissnn8rpv4yp416lbj09xf4whsi40cp6"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_x6gnbo2dvp562soh1fkdzkxfgawwpprcnyg2tf52",
+      "refreshToken": "jwt_smt5vki1p9rmwa59ya0wsl6mb6nzf5yqqftesab0"
+    },
+    {
+      "userId": 5,
+      "accessToken": "jwt_4g784pmk89f3ps47aytoev6whp7xjt6ypp7uvqb2",
+      "refreshToken": "jwt_5mfebe9pyjypw71fov90n7ccl8996bwbznv0jfq5"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_eu1g6oabfukjhm2twyzov5ike06wpgygp6xg50fv",
+      "refreshToken": "jwt_75b8mrv36aogxyfk7ztvsqa4rernxeal8dcp2vol"
+    },
+    {
+      "userId": 5,
+      "accessToken": "jwt_xc5uoucesokfxyv219g9b2t29o8o65gxqhho726r",
+      "refreshToken": "jwt_9ow06eptf7s3qce8usw9wp7kojxkwfziik8y4u51"
+    },
+    {
+      "userId": 1,
+      "accessToken": "jwt_dele5gkn96mexqvh98xw5gekp7gm714q8gqyd9u3",
+      "refreshToken": "jwt_loinn4yx463vl6s7l7lebzotylgqy11sb9dodw9b"
+    }
+  ],
+  "notifications": []
+}
