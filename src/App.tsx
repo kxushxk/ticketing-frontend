@@ -12,6 +12,7 @@ import type { AppDispatch } from "./redux/store";
 import { DetailSkeleton } from "./shared/components/Skeleton";
 import { PageTransition } from "./shared/components/PageTransition";
 import { Loader } from "./components/Loader/Loader";
+import { NetworkStatus } from "./components/NetworkStatus";
 
 const AppRoutes = lazy(() => import("./routes/AppRoutes"));
 
@@ -27,6 +28,8 @@ function App() {
   }, [dispatch]);
 
   return (
+    <div className="app-container">
+    <NetworkStatus />
     <Loader>
       <ErrorBoundary>
         <ToastProvider>
@@ -43,6 +46,7 @@ function App() {
         </ToastProvider>
       </ErrorBoundary>
     </Loader>
+    </div>
   );
 }
 
